@@ -161,7 +161,16 @@ app.post('/track', function (req, res, next) {
     })
 })
 
-
+app.put('/update', function (req, res, next) {
+    connection.query(
+        'UPDATE orders SET `fname`= ?,`lname`= ?,`address`= ? ,`date`= ? ,`shipper_name`= ? ,`status`= ? ,`description`= ? ,`weight`= ? WHERE order_ID = ?',
+        [req.body.fname, req.body.lname, req.body.address, req.body.date, req.body.shipper_name, 
+            req.body.status, req.body.description,req.body.weight,req.body.order_ID],
+        function (err, results) {
+            res.json(results);
+        }
+    );
+})
 app.listen(5000, function () {
     console.log('CORS-enabled web server listening on port 5000')
 })
